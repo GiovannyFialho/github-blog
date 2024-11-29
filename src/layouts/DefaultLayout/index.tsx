@@ -2,16 +2,16 @@ import { Outlet } from "react-router-dom";
 
 import { Header } from "@/components/Header";
 
-import { LayoutContent } from "@/layouts/DefaultLayout/styles";
+import { LayoutContainer, LayoutContent } from "@/layouts/DefaultLayout/styles";
 
 export function DefaultLayout() {
   return (
-    <div>
+    <LayoutContainer>
       <Header />
 
       <LayoutContent>
         <Outlet />
       </LayoutContent>
-    </div>
+    </LayoutContainer>
   );
 }

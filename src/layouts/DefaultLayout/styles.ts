@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 import { media } from "@/utils/media";
 
+export const LayoutContainer = styled.div`
+  padding-bottom: 12rem;
+`;
+
 export const LayoutContent = styled.div`
   max-width: 1120px;
   display: flex;

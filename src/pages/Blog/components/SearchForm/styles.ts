@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const SearchFormContainer = styled.div`
   flex: 1;
 
+  margin-bottom: 3.125rem;
+
   .header {
     display: flex;
     align-items: center;
