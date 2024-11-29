@@ -21,7 +21,7 @@ export function PostCard() {
           : issue.created_at;
 
         return (
-          <Link to="/post" key={issue.id}>
+          <Link to={`/post/${issue.number}`} key={issue.id}>
             <Card>
               <div className="head">
                 <h4>{issue.title}</h4>
@@ -31,7 +31,6 @@ export function PostCard() {
                     addSuffix: true,
                     locale: ptBR,
                   })}
-                  {}
                 </span>
               </div>
 

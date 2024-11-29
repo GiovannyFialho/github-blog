@@ -10,11 +10,13 @@ import { api } from "@/lib/axios";
 
 interface ItemsIssuesProps {
   id: number;
+  number: number;
   html_url: string;
   title: string;
   body: string;
   created_at: string;
   updated_at: string;
+  comments: number;
 }
 
 interface IssuesProps {
@@ -35,7 +37,9 @@ type GitHubUserData = {
 interface GitHubContext {
   user: GitHubUserData | null;
   issues: IssuesProps | null;
+  issue: ItemsIssuesProps | null;
   fetchSearchIssues: (query?: string) => Promise<void>;
+  fetchGetIssue: (number: number) => Promise<void>;
 }
 
 export const GitHubContext = createContext({} as GitHubContext);
@@ -49,6 +53,7 @@ export function GitHubContextProvider({
 }: GitHubContextProviderProps) {
   const [user, setUser] = useState<GitHubUserData | null>(null);
   const [issues, setIssues] = useState<IssuesProps | null>(null);
+  const [issue, setIssue] = useState<ItemsIssuesProps | null>(null);
 
   const fetchGetUser = useCallback(async () => {
     const response = await api.get("users/GiovannyFialho");
@@ -76,13 +81,23 @@ export function GitHubContextProvider({
     setIssues(response.data);
   }, []);
 
+  const fetchGetIssue = useCallback(async (number: number) => {
+    const response = await api.get(
+      `repos/GiovannyFialho/github-blog/issues/${number}`
+    );
+
+    setIssue(response.data);
+  }, []);
+
   useEffect(() => {
     fetchGetUser();
     fetchGetAllIssues();
   }, [fetchGetUser, fetchGetAllIssues]);
 
   return (
-    <GitHubContext.Provider value={{ issues, user, fetchSearchIssues }}>
+    <GitHubContext.Provider
+      value={{ issues, issue, user, fetchSearchIssues, fetchGetIssue }}
+    >
       {children}
     </GitHubContext.Provider>
   );

@@ -6,6 +6,12 @@ import {
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
+import { GitHubContext } from "@/context/GitHubContext";
 
 import { defaultTheme } from "@/styles/theme/default";
 
@@ -13,9 +19,12 @@ import {
   ProfileContainer,
   ProfileDetail,
 } from "@/pages/Post/components/PostHeader/styles";
-import { Link } from "react-router-dom";
 
 export function PostHeader() {
+  const { issue } = useContext(GitHubContext);
+
+  const correctDate = issue?.updated_at ? issue.updated_at : issue?.created_at;
+
   return (
     <ProfileContainer>
       <ProfileDetail>
@@ -26,7 +35,7 @@ export function PostHeader() {
           </Link>
 
           <div className="link">
-            <a href="https://github.com/GiovannyFialho" target="_blank">
+            <a href={issue?.html_url} target="_blank">
               Ver no GitHub
             </a>
 
@@ -38,7 +47,7 @@ export function PostHeader() {
           </div>
         </div>
 
-        <p className="title">JavaScript data types and data structures</p>
+        <p className="title">{issue?.title}</p>
 
         <div className="info-items">
           <div className="info-items-item">
@@ -51,15 +60,22 @@ export function PostHeader() {
             <span>GiovannyFialho</span>
           </div>
 
-          <div className="info-items-item">
-            <FontAwesomeIcon
-              icon={faCalendarDay}
-              size="1x"
-              color={defaultTheme["base-label"]}
-            />
+          {correctDate && (
+            <div className="info-items-item">
+              <FontAwesomeIcon
+                icon={faCalendarDay}
+                size="1x"
+                color={defaultTheme["base-label"]}
+              />
 
-            <span>Há 1 dia</span>
-          </div>
+              <span>
+                {formatDistanceToNow(new Date(correctDate), {
+                  addSuffix: true,
+                  locale: ptBR,
+                })}
+              </span>
+            </div>
+          )}
 
           <div className="info-items-item">
             <FontAwesomeIcon
@@ -68,7 +84,7 @@ export function PostHeader() {
               color={defaultTheme["base-label"]}
             />
 
-            <span>5 comentários</span>
+            <span>{issue?.comments} comentários</span>
           </div>
         </div>
       </ProfileDetail>
