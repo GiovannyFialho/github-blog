@@ -5,8 +5,11 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 
 import { defaultTheme } from "@/styles/theme/default";
+
+import { GitHubContext } from "@/context/GitHubContext";
 
 import {
   ProfileAvatar,
@@ -15,16 +18,18 @@ import {
 } from "@/pages/Blog/components/Profile/styles";
 
 export function Profile() {
+  const { user } = useContext(GitHubContext);
+
   return (
     <ProfileContainer>
       <ProfileAvatar src="https://github.com/GiovannyFialho.png" alt="" />
 
       <ProfileDetail>
         <div className="container_title">
-          <h2>Giovanny Fialho</h2>
+          <h2>{user?.name}</h2>
 
           <div className="link">
-            <a href="https://github.com/GiovannyFialho" target="_blank">
+            <a href={user?.html_url} target="_blank">
               GitHub
             </a>
 
@@ -36,11 +41,7 @@ export function Profile() {
           </div>
         </div>
 
-        <p className="description">
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p className="description">{user?.bio}</p>
 
         <div className="info-items">
           <div className="info-items-item">
@@ -50,28 +51,32 @@ export function Profile() {
               color={defaultTheme["base-label"]}
             />
 
-            <span>GiovannyFialho</span>
+            <span>{user?.login}</span>
           </div>
 
-          <div className="info-items-item">
-            <FontAwesomeIcon
-              icon={faBuilding}
-              size="1x"
-              color={defaultTheme["base-label"]}
-            />
+          {user?.company && (
+            <div className="info-items-item">
+              <FontAwesomeIcon
+                icon={faBuilding}
+                size="1x"
+                color={defaultTheme["base-label"]}
+              />
 
-            <span>Rocketseat</span>
-          </div>
+              <span>{user.company}</span>
+            </div>
+          )}
 
-          <div className="info-items-item">
-            <FontAwesomeIcon
-              icon={faUserGroup}
-              size="1x"
-              color={defaultTheme["base-label"]}
-            />
+          {user?.followers && (
+            <div className="info-items-item">
+              <FontAwesomeIcon
+                icon={faUserGroup}
+                size="1x"
+                color={defaultTheme["base-label"]}
+              />
 
-            <span>32 seguidores</span>
-          </div>
+              <span>{user?.followers} seguidores</span>
+            </div>
+          )}
         </div>
       </ProfileDetail>
     </ProfileContainer>

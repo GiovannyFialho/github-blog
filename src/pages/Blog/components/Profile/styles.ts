@@ -32,8 +32,9 @@ export const ProfileAvatar = styled.img`
 `;
 
 export const ProfileDetail = styled.div`
+  width: 100%;
+
   .container_title {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
