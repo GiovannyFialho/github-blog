@@ -38,6 +38,7 @@ interface GitHubContext {
   user: GitHubUserData | null;
   issues: IssuesProps | null;
   issue: ItemsIssuesProps | null;
+  fetchGetAllIssues: () => Promise<void>;
   fetchSearchIssues: (query?: string) => Promise<void>;
   fetchGetIssue: (number: number) => Promise<void>;
 }
@@ -96,7 +97,14 @@ export function GitHubContextProvider({
 
   return (
     <GitHubContext.Provider
-      value={{ issues, issue, user, fetchSearchIssues, fetchGetIssue }}
+      value={{
+        issues,
+        issue,
+        user,
+        fetchGetAllIssues,
+        fetchSearchIssues,
+        fetchGetIssue,
+      }}
     >
       {children}
     </GitHubContext.Provider>

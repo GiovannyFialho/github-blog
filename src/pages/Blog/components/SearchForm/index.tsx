@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -19,12 +19,19 @@ type SearchFormInput = z.infer<typeof searchFormSchema>;
 export function SearchForm() {
   const { issues, fetchSearchIssues } = useContext(GitHubContext);
 
-  const { register, handleSubmit } = useForm<SearchFormInput>({
+  const { register, handleSubmit, reset } = useForm<SearchFormInput>({
     resolver: zodResolver(searchFormSchema),
   });
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   async function handleSearchPosts(data: SearchFormInput) {
     fetchSearchIssues(data.query);
+    reset();
+
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
   }
 
   return (
@@ -40,6 +47,10 @@ export function SearchForm() {
           type="text"
           placeholder="Buscar conteúdo"
           {...register("query")}
+          ref={(e) => {
+            register("query").ref(e);
+            inputRef.current = e;
+          }}
         />
       </form>
     </SearchFormContainer>
