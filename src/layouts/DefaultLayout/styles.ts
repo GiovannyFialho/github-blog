@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-export const LayoutContainer = styled.div`
-  min-width: 100vw;
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-`;
+import { media } from "@/utils/media";
 
 export const LayoutContent = styled.div`
-  margin: 0 auto;
-  padding: 0 2.5rem;
-
+  max-width: 1120px;
   display: flex;
   flex-direction: column;
+
+  margin: 0 auto;
+  padding: 0 5rem;
+
+  @media ${media.tablet} {
+    padding: 0 1.5rem;
+  }
 `;

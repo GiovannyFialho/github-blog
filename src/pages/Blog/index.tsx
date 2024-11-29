@@ -1,5 +1,12 @@
-import { Title } from "@/pages/Blog/styles";
+import { Profile } from "@/components/Profile";
+
+import { SearchForm } from "@/pages/Blog/components/SearchForm";
 
 export function Blog() {
-  return <Title>Blog</Title>;
+  return (
+    <div>
+      <Profile />
+      <SearchForm />
+    </div>
+  );
 }
