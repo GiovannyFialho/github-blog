@@ -1,31 +1,33 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
+  faAngleLeft,
   faArrowUpRightFromSquare,
-  faBuilding,
-  faUserGroup,
+  faCalendarDay,
+  faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { defaultTheme } from "@/styles/theme/default";
 
 import {
-  ProfileAvatar,
   ProfileContainer,
   ProfileDetail,
-} from "@/components/Profile/styles";
+} from "@/pages/Post/components/PostHeader/styles";
+import { Link } from "react-router-dom";
 
-export function Profile() {
+export function PostHeader() {
   return (
     <ProfileContainer>
-      <ProfileAvatar src="https://github.com/GiovannyFialho.png" alt="" />
-
       <ProfileDetail>
-        <div className="container_title">
-          <h2>Giovanny Fialho</h2>
+        <div className="header">
+          <Link to="/" className="backLink">
+            <FontAwesomeIcon icon={faAngleLeft} />
+            Voltar
+          </Link>
 
           <div className="link">
             <a href="https://github.com/GiovannyFialho" target="_blank">
-              GitHub
+              Ver no GitHub
             </a>
 
             <FontAwesomeIcon
@@ -36,11 +38,7 @@ export function Profile() {
           </div>
         </div>
 
-        <p className="description">
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p className="title">JavaScript data types and data structures</p>
 
         <div className="info-items">
           <div className="info-items-item">
@@ -55,22 +53,22 @@ export function Profile() {
 
           <div className="info-items-item">
             <FontAwesomeIcon
-              icon={faBuilding}
+              icon={faCalendarDay}
               size="1x"
               color={defaultTheme["base-label"]}
             />
 
-            <span>Rocketseat</span>
+            <span>Há 1 dia</span>
           </div>
 
           <div className="info-items-item">
             <FontAwesomeIcon
-              icon={faUserGroup}
+              icon={faComment}
               size="1x"
               color={defaultTheme["base-label"]}
             />
 
-            <span>32 seguidores</span>
+            <span>5 comentários</span>
           </div>
         </div>
       </ProfileDetail>

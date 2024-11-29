@@ -1,5 +1,11 @@
-import { Title } from "@/pages/Post/styles";
+import { PostBody } from "@/pages/Post/components/PostBody";
+import { PostHeader } from "@/pages/Post/components/PostHeader";
 
 export function Post() {
-  return <Title>Post</Title>;
+  return (
+    <div>
+      <PostHeader />
+      <PostBody />
+    </div>
+  );
 }

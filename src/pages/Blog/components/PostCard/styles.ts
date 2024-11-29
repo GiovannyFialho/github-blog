@@ -11,7 +11,13 @@ export const Card = styled.div`
 
   padding: 2rem;
   border-radius: 10px;
+  border: 1px solid ${(props) => props.theme["base-post"]};
   background: ${(props) => props.theme["base-post"]};
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    border: 1px solid ${(props) => props.theme["blue"]};
+  }
 
   .head {
     display: flex;
